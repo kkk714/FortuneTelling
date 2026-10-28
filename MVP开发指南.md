@@ -4,7 +4,7 @@
 
 2026-10-29 目标更新：最终交付改为公众直接打开网址即可使用。选定的最小改动路线为 Render 托管现有 Python API、Lovable 发布现有前端、GitHub 保存代码。详细变更见[Lovable公网接入补充说明](Lovable公网接入补充说明.md)。当前后端仍只在本机运行，公网服务尚未创建或发布。
 
-2026-10-29 部署准备：已新增 `render.yaml`、`.python-version`、`README.md` 与[Render部署说明](Render部署说明.md)，准备上传至 `kkk714/FortuneTelling`。配置采用免费 Python Web Service，启动现有 `api:app`，没有改变业务接口。GitHub 上传与 Render 创建服务是两个步骤，尚未取得公网 API 地址。
+2026-10-29 部署准备：已新增 `render.yaml`、`.python-version`、`README.md` 与[Render部署说明](Render部署说明.md)，后端代码和配置已上传至 [kkk714/FortuneTelling](https://github.com/kkk714/FortuneTelling) 的 `main` 分支。配置采用免费 Python Web Service，启动现有 `api:app`，没有改变业务接口。GitHub 上传与 Render 创建服务是两个步骤，尚未取得公网 API 地址。
 
 ## 1. 当前进度
 
