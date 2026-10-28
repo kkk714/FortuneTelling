@@ -1,0 +1,1246 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Suanming API",
+    "description": "八字表层五行、主题解读、抽签与相似人物。language 支持 zh/en，各功能独立返回 JSON。",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "tags": [
+          "基础信息"
+        ],
+        "summary": "Health",
+        "description": "检查服务是否运行；不排盘、不读取人物、不请求百科。",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "请求或出生时间无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "本地资料暂时不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务内部错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/topics": {
+      "get": {
+        "tags": [
+          "基础信息"
+        ],
+        "summary": "Topics",
+        "operationId": "topics_api_topics_get",
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "zh",
+                "en"
+              ],
+              "type": "string",
+              "default": "zh",
+              "title": "Language"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TopicsResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "请求或出生时间无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "本地资料暂时不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务内部错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/cities": {
+      "get": {
+        "tags": [
+          "基础信息"
+        ],
+        "summary": "Cities",
+        "operationId": "cities_api_cities_get",
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "zh",
+                "en"
+              ],
+              "type": "string",
+              "default": "zh",
+              "title": "Language"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitiesResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "请求或出生时间无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "本地资料暂时不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务内部错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chart": {
+      "post": {
+        "tags": [
+          "出生信息"
+        ],
+        "summary": "Chart",
+        "description": "首页填写或更新出生信息时验证并排盘，不产生主题解读、签文或人物。",
+        "operationId": "chart_api_chart_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BirthRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChartResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "请求或出生时间无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "本地资料暂时不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务内部错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/report": {
+      "post": {
+        "tags": [
+          "主题解读"
+        ],
+        "summary": "Report",
+        "description": "仅返回所选主题的排盘及解读，不抽签、不查询人物。",
+        "operationId": "report_api_report_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "请求或出生时间无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "本地资料暂时不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务内部错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/draw": {
+      "post": {
+        "tags": [
+          "主题抽签"
+        ],
+        "summary": "Draw",
+        "description": "只抽取所选主题的一支签，不使用出生信息、不查询人物。",
+        "operationId": "draw_api_draw_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrawRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrawResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "请求或出生时间无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "本地资料暂时不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务内部错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/people": {
+      "post": {
+        "tags": [
+          "相似人物"
+        ],
+        "summary": "People",
+        "description": "只查询最多三位相似人物；百科不可用时保留匹配和原文链接。",
+        "operationId": "people_api_people_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PeopleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PeopleResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "请求或出生时间无效",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "本地资料暂时不可用",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "服务内部错误",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Biography": {
+        "properties": {
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "available": {
+            "type": "boolean",
+            "title": "Available"
+          }
+        },
+        "type": "object",
+        "required": [
+          "summary",
+          "url",
+          "available"
+        ],
+        "title": "Biography"
+      },
+      "BirthInput": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+            "title": "Date",
+            "examples": [
+              "2003-04-01"
+            ]
+          },
+          "time": {
+            "type": "string",
+            "pattern": "^[0-9]{2}:[0-9]{2}$",
+            "title": "Time",
+            "examples": [
+              "14:15"
+            ]
+          },
+          "timezone": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Timezone",
+            "default": "Asia/Shanghai"
+          },
+          "fold": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 1.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fold",
+            "description": "仅重复钟点需要：0 为第一次，1 为第二次。"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "date",
+          "time"
+        ],
+        "title": "BirthInput"
+      },
+      "BirthRequest": {
+        "properties": {
+          "birth": {
+            "$ref": "#/components/schemas/BirthInput"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "title": "Language",
+            "default": "zh"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "birth"
+        ],
+        "title": "BirthRequest"
+      },
+      "Chart": {
+        "properties": {
+          "pillars": {
+            "$ref": "#/components/schemas/Pillars"
+          },
+          "element_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Element Counts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pillars",
+          "element_counts"
+        ],
+        "title": "Chart"
+      },
+      "ChartResponse": {
+        "properties": {
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "title": "Language"
+          },
+          "birth": {
+            "$ref": "#/components/schemas/ResolvedBirth"
+          },
+          "chart": {
+            "$ref": "#/components/schemas/Chart"
+          },
+          "element_labels": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Element Labels"
+          },
+          "calculation_note": {
+            "type": "string",
+            "title": "Calculation Note"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          }
+        },
+        "type": "object",
+        "required": [
+          "language",
+          "birth",
+          "chart",
+          "element_labels",
+          "calculation_note",
+          "notice"
+        ],
+        "title": "ChartResponse"
+      },
+      "CitiesResponse": {
+        "properties": {
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "title": "Language"
+          },
+          "cities": {
+            "items": {
+              "$ref": "#/components/schemas/City"
+            },
+            "type": "array",
+            "title": "Cities"
+          }
+        },
+        "type": "object",
+        "required": [
+          "language",
+          "cities"
+        ],
+        "title": "CitiesResponse"
+      },
+      "City": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "timezone"
+        ],
+        "title": "City"
+      },
+      "DrawRequest": {
+        "properties": {
+          "topic": {
+            "type": "string",
+            "enum": [
+              "wealth",
+              "study",
+              "romance"
+            ],
+            "title": "Topic",
+            "default": "wealth"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "title": "Language",
+            "default": "zh"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "DrawRequest"
+      },
+      "DrawResponse": {
+        "properties": {
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "title": "Language"
+          },
+          "lot": {
+            "$ref": "#/components/schemas/Lot"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          }
+        },
+        "type": "object",
+        "required": [
+          "language",
+          "lot",
+          "notice"
+        ],
+        "title": "DrawResponse"
+      },
+      "ErrorInfo": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "details": {
+            "title": "Details"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorInfo"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorInfo"
+          }
+        },
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "ErrorResponse"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "api_version": {
+            "type": "string",
+            "title": "Api Version"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "api_version"
+        ],
+        "title": "HealthResponse"
+      },
+      "Lot": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "topic": {
+            "type": "string",
+            "enum": [
+              "wealth",
+              "study",
+              "romance"
+            ],
+            "title": "Topic"
+          },
+          "topic_label": {
+            "type": "string",
+            "title": "Topic Label"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "interpretation": {
+            "type": "string",
+            "title": "Interpretation"
+          },
+          "advice": {
+            "type": "string",
+            "title": "Advice"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "topic",
+          "topic_label",
+          "title",
+          "text",
+          "interpretation",
+          "advice"
+        ],
+        "title": "Lot"
+      },
+      "PeopleRequest": {
+        "properties": {
+          "birth": {
+            "$ref": "#/components/schemas/BirthInput"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "title": "Language",
+            "default": "zh"
+          },
+          "limit": {
+            "type": "integer",
+            "maximum": 3.0,
+            "minimum": 1.0,
+            "title": "Limit",
+            "default": 3
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "birth"
+        ],
+        "title": "PeopleRequest"
+      },
+      "PeopleResponse": {
+        "properties": {
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "title": "Language"
+          },
+          "birth": {
+            "$ref": "#/components/schemas/ResolvedBirth"
+          },
+          "dominant_elements": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Dominant Elements"
+          },
+          "element_labels": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Element Labels"
+          },
+          "people": {
+            "items": {
+              "$ref": "#/components/schemas/PersonMatch"
+            },
+            "type": "array",
+            "title": "People"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          }
+        },
+        "type": "object",
+        "required": [
+          "language",
+          "birth",
+          "dominant_elements",
+          "element_labels",
+          "people",
+          "notice"
+        ],
+        "title": "PeopleResponse"
+      },
+      "PersonInfo": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "birth": {
+            "type": "string",
+            "title": "Birth"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "birth_source": {
+            "type": "string",
+            "title": "Birth Source"
+          },
+          "dominant_elements": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Dominant Elements"
+          },
+          "element_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Element Counts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "birth",
+          "timezone",
+          "birth_source",
+          "dominant_elements",
+          "element_counts"
+        ],
+        "title": "PersonInfo"
+      },
+      "PersonMatch": {
+        "properties": {
+          "person": {
+            "$ref": "#/components/schemas/PersonInfo"
+          },
+          "common_elements": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Common Elements"
+          },
+          "same_dominant": {
+            "type": "boolean",
+            "title": "Same Dominant"
+          },
+          "match_label": {
+            "type": "string",
+            "title": "Match Label"
+          },
+          "biography": {
+            "$ref": "#/components/schemas/Biography"
+          }
+        },
+        "type": "object",
+        "required": [
+          "person",
+          "common_elements",
+          "same_dominant",
+          "match_label",
+          "biography"
+        ],
+        "title": "PersonMatch"
+      },
+      "Pillars": {
+        "properties": {
+          "year": {
+            "type": "string",
+            "title": "Year"
+          },
+          "month": {
+            "type": "string",
+            "title": "Month"
+          },
+          "day": {
+            "type": "string",
+            "title": "Day"
+          },
+          "time": {
+            "type": "string",
+            "title": "Time"
+          }
+        },
+        "type": "object",
+        "required": [
+          "year",
+          "month",
+          "day",
+          "time"
+        ],
+        "title": "Pillars"
+      },
+      "Reading": {
+        "properties": {
+          "topic": {
+            "type": "string",
+            "enum": [
+              "wealth",
+              "study",
+              "romance"
+            ],
+            "title": "Topic"
+          },
+          "topic_label": {
+            "type": "string",
+            "title": "Topic Label"
+          },
+          "dominant_elements": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Dominant Elements"
+          },
+          "missing_elements": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Missing Elements"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ReadingItem"
+            },
+            "type": "array",
+            "title": "Items"
+          }
+        },
+        "type": "object",
+        "required": [
+          "topic",
+          "topic_label",
+          "dominant_elements",
+          "missing_elements",
+          "text",
+          "items"
+        ],
+        "title": "Reading"
+      },
+      "ReadingItem": {
+        "properties": {
+          "element": {
+            "type": "string",
+            "title": "Element"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "basis": {
+            "type": "string",
+            "title": "Basis"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "advice": {
+            "type": "string",
+            "title": "Advice"
+          }
+        },
+        "type": "object",
+        "required": [
+          "element",
+          "title",
+          "basis",
+          "text",
+          "advice"
+        ],
+        "title": "ReadingItem"
+      },
+      "ReportRequest": {
+        "properties": {
+          "birth": {
+            "$ref": "#/components/schemas/BirthInput"
+          },
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "title": "Language",
+            "default": "zh"
+          },
+          "topic": {
+            "type": "string",
+            "enum": [
+              "wealth",
+              "study",
+              "romance"
+            ],
+            "title": "Topic",
+            "default": "wealth"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "birth"
+        ],
+        "title": "ReportRequest"
+      },
+      "ReportResponse": {
+        "properties": {
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "title": "Language"
+          },
+          "birth": {
+            "$ref": "#/components/schemas/ResolvedBirth"
+          },
+          "chart": {
+            "$ref": "#/components/schemas/Chart"
+          },
+          "element_labels": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Element Labels"
+          },
+          "calculation_note": {
+            "type": "string",
+            "title": "Calculation Note"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          },
+          "reading": {
+            "$ref": "#/components/schemas/Reading"
+          }
+        },
+        "type": "object",
+        "required": [
+          "language",
+          "birth",
+          "chart",
+          "element_labels",
+          "calculation_note",
+          "notice",
+          "reading"
+        ],
+        "title": "ReportResponse"
+      },
+      "ResolvedBirth": {
+        "properties": {
+          "local_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Local Datetime"
+          },
+          "timezone": {
+            "type": "string",
+            "title": "Timezone"
+          },
+          "utc_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Utc Datetime"
+          },
+          "calculation_datetime": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Calculation Datetime"
+          },
+          "fold": {
+            "type": "integer",
+            "title": "Fold"
+          }
+        },
+        "type": "object",
+        "required": [
+          "local_datetime",
+          "timezone",
+          "utc_datetime",
+          "calculation_datetime",
+          "fold"
+        ],
+        "title": "ResolvedBirth"
+      },
+      "TopicInfo": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "wealth",
+              "study",
+              "romance"
+            ],
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "description"
+        ],
+        "title": "TopicInfo"
+      },
+      "TopicsResponse": {
+        "properties": {
+          "language": {
+            "type": "string",
+            "enum": [
+              "zh",
+              "en"
+            ],
+            "title": "Language"
+          },
+          "topics": {
+            "items": {
+              "$ref": "#/components/schemas/TopicInfo"
+            },
+            "type": "array",
+            "title": "Topics"
+          }
+        },
+        "type": "object",
+        "required": [
+          "language",
+          "topics"
+        ],
+        "title": "TopicsResponse"
+      }
+    }
+  }
+}

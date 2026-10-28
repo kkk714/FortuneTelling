@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: fortune-telling-api
+    runtime: python
+    plan: free
+    branch: main
+    autoDeployTrigger: commit
+    buildCommand: python -m pip install -r requirements-api.txt
+    startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.14"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+# Set SUANMING_CORS_ORIGINS in the Render dashboard once the real Lovable
+# origins are known. See Render部署说明.md; no frontend domain is assumed here.

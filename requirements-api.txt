@@ -1,0 +1,6 @@
+# Use the separate Python 3.12+ API environment.
+-r requirements.txt
+fastapi==0.162.0
+uvicorn==0.54.0
+pydantic==2.14.1
+starlette==1.10.0
