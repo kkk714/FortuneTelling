@@ -10,15 +10,17 @@
 
 - Python FastAPI 后端：部署到 Render 的 Python Web Service。
 - 已有 Lovable 前端：保留当前项目和页面，继续在 Lovable 发布。
-- GitHub：保存和同步源代码；后端关联 GitHub 分支后配置自动部署。
+- GitHub：保存和同步源代码；当前 Render 使用公开仓库 URL，后续更新需手动部署。
 
 本文补充并覆盖《Lovable本地Web需求说明.md》中“仅在用户本机运行”“公网部署留到以后”等部署范围约定。原文的五页结构、业务逻辑、数据字段、中英文规则、状态管理、同签语言切换与双语签文快照继续有效。
 
 请继续当前已经制作的页面，保留已有视觉成果。本次不要求重新设计页面或重新讨论已确认的风格，不新增页面、数据库、登录、历史记录，也不重写 Python 业务逻辑。
 
-当前尚未创建真实 Render 服务或取得线上 API 地址；不能把占位地址、`127.0.0.1` 或 Lovable 页面本身的地址标记为已连接的生产后端。
+**当前状态：后端 HTTPS 已部署并验证，前端未接入／未发布。** Render 服务为 Live、Free，区域 Oregon。实际 API 基地址是 [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)。健康、七个接口及四个具体 Lovable 来源的 CORS 均已完成线上检查。
 
-部署配置现已加入仓库根目录 `render.yaml`，具体创建步骤见[Render部署说明](Render部署说明.md)。本说明中的 API 地址仍待实际部署后提供。
+Lovable 前端尚未发布，尚未确认与此后端连接成功。Publish 界面计划域名是 `https://doc-to-dreamsite.lovable.app`，当前预览来源是 `https://preview--doc-to-dreamsite.lovable.app`；二者不能混写成已验收的公众网站。
+
+服务记录与 CORS 来源见[Render部署说明](Render部署说明.md)。[服务控制台](https://dashboard.render.com/web/srv-dbh8gko473hc7397mgrg) 和 [Blueprint](https://dashboard.render.com/blueprint/exs-dbh8gbe1egvs73eqokpg) 是账号管理入口，不是面向访问者的网站。
 
 ## 2. 用人话理解这三个地方
 
@@ -34,7 +36,7 @@
 用户浏览器 → Lovable 发布的网页 → Render 上的 Python API
 ```
 
-部署成功后，用户的 Mac 不需要保持开机。平台默认提供的网站地址可先用于联调和公开体验，不必先准备自有域名。
+完成后端验收、前端接入与网站发布后，用户的 Mac 不需要保持开机。平台提供的网站地址可用于公开体验，不必先准备自有域名。
 
 ## 3. 后端部署约定：由后端维护方完成
 
@@ -50,13 +52,24 @@ Render 使用原生 Python Web Service，不要求前端改写后端，也不需
 | Health check | `/api/health` |
 | 业务数据 | 使用同一仓库中的两份规则 JSON 及既有人物资料 |
 
-这些配置不代表云端服务已经部署。线上不能用当前固定监听 `127.0.0.1:8000` 的本机启动方式。云端通过上面的 Uvicorn 命令监听平台端口；本机原启动方式可继续保留。
+服务已通过公开仓库 URL 创建，业务与跨域验收通过。线上通过上面的 Uvicorn 命令监听平台端口，本机原启动方式可继续保留。
 
-Render 部署完成后提供真实的 `https://...onrender.com` 地址。HTTPS 由平台处理，本路线不要求先为用户的 Mac 配置本地可信证书。
+真实地址为 `https://fortune-telling-api-rlt2.onrender.com`。[健康检查](https://fortune-telling-api-rlt2.onrender.com/api/health) 已返回 `200`、`ok`、版本 `1.0.0`；[交互文档](https://fortune-telling-api-rlt2.onrender.com/docs) 与 [OpenAPI](https://fortune-telling-api-rlt2.onrender.com/openapi.json) 完整提供七个接口。HTTPS 由平台处理，不要求先为用户的 Mac 配置本地可信证书。
 
-后端维护方再把 `SUANMING_CORS_ORIGINS` 设置为实际前端的完整来源：包括 `https://`、域名和必要端口，不包含页面路径。公开网站来源和需要联调的 Lovable 预览来源分别确认后加入。
+`render.yaml` 已将以下四个具体来源加入 `SUANMING_CORS_ORIGINS`，四项线上预检均已通过：
 
-先使用免费实例进行公开体验验证。免费实例闲置 15 分钟会休眠，再次访问唤醒约需一分钟；因此不能把它当作随时立即响应的常驻服务。是否以后升级常驻规格，由用户根据使用体验另行决定。
+```text
+https://doc-to-dreamsite.lovable.app
+https://preview--doc-to-dreamsite.lovable.app
+https://id-preview--20989e88-1876-429e-accf-5a000bbdbaa3.lovable.app
+https://20989e88-1876-429e-accf-5a000bbdbaa3.lovableproject.com
+```
+
+第一项是计划发布来源，其余是已经观察到的预览／项目来源；CORS 通过不等于网页已发布或联调成功。正常报告和参数错误的跨域响应也已验证，未允许来源的预检被拒绝。来源不包含页面路径。
+
+线上报告、日期及 DST 校验、英文桃花抽签与中英文人物匹配均已检查。百科部分简介不可用：中文三位均返回备用说明；英文仅 Elvis Presley 本次获取成功，另外两位使用备用说明。匹配与原文链接正常，前端应继续遵守 `biography.available=false` 的降级约定。
+
+先使用免费实例进行体验验证。免费实例闲置后可能休眠，首次唤醒需要等待。是否以后升级常驻规格，由用户根据使用体验另行决定。
 
 ## 4. Lovable 需要调整的内容
 
@@ -64,7 +77,7 @@ Render 部署完成后提供真实的 `https://...onrender.com` 地址。HTTPS �
 
 所有 API 请求都经过一个集中配置的基地址：健康检查、城市、主题、出生验证、报告、抽签、人物查询都一样。
 
-- 生产环境和 Lovable 在线预览：使用部署后提供的真实 Render HTTPS 地址。
+- 生产环境和 Lovable 在线预览：使用 `https://fortune-telling-api-rlt2.onrender.com`；后端已验收，前端联调仍待完成。
 - 开发者在自己电脑本地联调：可以显式配置 `http://127.0.0.1:8000`。
 - 基地址不包含 `/api`，请求路径继续使用 `/api/chart` 等。
 - 不要简单使用“开发模式就连接 localhost”的判断；Lovable 在线预览也可能是开发模式。
@@ -72,7 +85,13 @@ Render 部署完成后提供真实的 `https://...onrender.com` 地址。HTTPS �
 
 根据当前前端实际框架选配置方式。如果是 Vite，可以继续使用 `VITE_API_BASE_URL`；如果是其他框架，使用该框架的公开配置约定，不为套用变量名而迁移整个项目。
 
-后端地址还没提供时，可继续完善界面与交互；真实查询显示连接尚不可用的状态，不自行编造一个线上 API 地址或用模拟结果冒充真实联通。
+如果使用 Vite，可将公开配置设为：
+
+```dotenv
+VITE_API_BASE_URL=https://fortune-telling-api-rlt2.onrender.com
+```
+
+基地址已提供，但是否真正联通仍以浏览器请求结果为准；失败时如实显示连接状态，不用模拟结果冒充成功。
 
 ### 4.2 页面和 API 契约继续保留
 
@@ -100,29 +119,26 @@ POST /api/people
 
 考虑免费后端休眠后的较长启动时间：
 
-- 可以用安全的 `GET /api/health` 检测服务是否准备好，并显示加载进度状态。
+- 可以用安全的 `GET /api/health` 检测服务是否准备好，并显示加载状态。
 - 不要因为很短的前端超时就立即认定服务永久不可用；等待应可取消，失败时允许用户主动重试。
 - `POST /api/draw` 不做自动重试，也不能因为服务唤醒、页面挂载或切换语言重复发起抽签。
 - 人物查询还可能等待外部百科，继续保留单独的加载提示和已有的降级显示。
 
 ### 4.4 公开发布与代码同步
 
-前端继续在 Lovable 发布，网站访问范围选择为允许公众访问，测试实际发布网址。
+前端后续仍由 Lovable 发布，发布时确认网站允许公众访问并测试实际网址。目前尚未发布；`https://doc-to-dreamsite.lovable.app` 只是 Publish 界面的计划域名。
 
-GitHub 同步用于保存代码和同步编辑器，不能把“同步成功”当成“已发布网站已更新”。在 Lovable 修改前端后，仍需发布相应更新。Render 后端可以在关联的 GitHub 分支更新后自动部署，两边的发布状态分别确认。
+GitHub 同步用于保存代码和同步编辑器，不能把“同步成功”当成“已发布网站已更新”。在 Lovable 修改前端后，仍需发布相应更新。当前 Render 未安装 GitHub 仓库集成，`autoDeployTrigger: off`；代码推送到 `main` 后要手动选择 **Deploy latest commit**。前后端发布状态分别确认。
 
 ## 5. 联调顺序
 
-1. Lovable 保留现有前端工作，先将 API 请求整理成集中配置。
-2. 后端维护方准备部署配置，将后端源代码放入 GitHub。
-3. 用户关联 Render 和所选 GitHub 仓库，创建服务并选择实例规格。
-4. 后端维护方确认真实 HTTPS `/api/health`、`/docs` 和业务请求可以访问。
-5. 把真实 API 基地址交给 Lovable，配置进当前前端。
-6. 确认实际的前端发布来源与预览来源，在 Render 配置允许来源。
-7. 在真实前端发布网址验证出生信息、解读、抽签、同签语言切换、人物与退出。
-8. 之后再把网站网址分享给其他人。
+1. 已完成：后端代码与部署配置放入 GitHub，使用公开仓库 URL 创建 Render Blueprint 和免费服务。
+2. 已完成：真实 HTTPS 健康、接口业务与四个具体来源的跨域检查。
+3. 待完成：Lovable 使用上述真实基地址，在当前预览中验证请求。
+4. 待完成：验证出生信息、解读、抽签、同签语言切换、人物与退出，修正联调问题。
+5. 待完成：由用户确认并发布前端，再从真实发布网址验收和分享。
 
-创建云服务、发布网站和账号授权由用户明确发起；本文件不是已完成部署的记录。
+本次后端部署已由用户授权执行；后端 HTTPS 已部署并验证，不表示前端已经连接或发布。
 
 ## 6. 公网验收标准
 
@@ -138,6 +154,6 @@ GitHub 同步用于保存代码和同步编辑器，不能把“同步成功”�
 
 ## 7. 可以直接发给 Lovable 的补充消息
 
-> 最终目标已确定为“任何人打开网址即可使用”。请保留现在已经制作的五个页面、交互和视觉成果，继续当前项目，不要重做界面。部署路线改为：现有 Python FastAPI 后端由我们部署到 Render，你负责继续完成并发布 Lovable 前端。请按这份补充说明统一 API 基地址配置，线上与在线预览使用随后提供的真实 Render HTTPS 地址，继续沿用原来的七个接口和 JSON 契约。现在不要虚构公网地址；在我们提供真实地址后完成接入。补充处理免费后端休眠后的等待状态；随机抽签不允许自动重试，切换语言继续保留同一签。旧文档里“仅限本地运行”的部署范围已由本说明替代，其余业务规则继续有效。
+> 请保留当前五个页面、交互和视觉成果，继续现有项目。后端 HTTPS 已部署并验证，实际 API 基地址是 https://fortune-telling-api-rlt2.onrender.com ，基地址不含 /api；沿用原来的七个接口和 JSON 契约。四个具体 Lovable 来源的 CORS 已通过，下一步请在当前前端实际接入和联调；不要提前宣称已连接或发布。Publish 界面计划域名是 doc-to-dreamsite.lovable.app，当前预览为 preview--doc-to-dreamsite.lovable.app。人物接口的 available=false 是正常降级，请保留备用说明和原文链接。继续处理免费后端唤醒等待；随机抽签不自动重试，切换语言保留同一签。联调通过后，再由用户确认前端发布。
 
 官方资料（核对日期 2026-10-29）：[Render 部署 FastAPI](https://render.com/docs/deploy-fastapi)、[Render Python 版本配置](https://render.com/docs/python-version)、[Render 免费实例限制](https://render.com/docs/free)、[Render 自动部署](https://render.com/docs/deploys)、[Lovable 网站发布](https://docs.lovable.dev/features/publish)。

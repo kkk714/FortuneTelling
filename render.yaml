@@ -4,7 +4,7 @@ services:
     runtime: python
     plan: free
     branch: main
-    autoDeployTrigger: commit
+    autoDeployTrigger: "off"
     buildCommand: python -m pip install -r requirements-api.txt
     startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/health
@@ -13,5 +13,7 @@ services:
         value: "3.12.14"
       - key: PYTHONUNBUFFERED
         value: "1"
-# Set SUANMING_CORS_ORIGINS in the Render dashboard once the real Lovable
-# origins are known. See Render部署说明.md; no frontend domain is assumed here.
+      - key: SUANMING_CORS_ORIGINS
+        value: https://doc-to-dreamsite.lovable.app,https://preview--doc-to-dreamsite.lovable.app,https://id-preview--20989e88-1876-429e-accf-5a000bbdbaa3.lovable.app,https://20989e88-1876-429e-accf-5a000bbdbaa3.lovableproject.com
+# Deployed from the public repository URL. Trigger future code deploys manually.
+# These are this Lovable project's configured publish domain and preview origins.

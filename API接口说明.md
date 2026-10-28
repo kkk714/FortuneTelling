@@ -2,7 +2,9 @@
 
 项目目录：`/Users/liuliu/Desktop/suanming`。本机 HTTP API 已实现，中英文共用现有排盘、规则、抽签和人物匹配逻辑。终端程序仍可使用原来的启动方式。
 
-2026-10-29：已新增 Render 部署配置。公网创建步骤见[Render部署说明](Render部署说明.md)，网页接入见[Lovable公网接入补充说明](Lovable公网接入补充说明.md)。目前还没有真实线上服务地址；下文的本机地址仅用于本地测试。
+2026-10-29 公网状态：**后端 HTTPS 已部署并验证，前端未接入／未发布。** Render 服务为 Live、Free，区域 Oregon。真实 API 基地址为 [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)，七个接口、业务及四个 Lovable 来源的 CORS 已完成线上检查。
+
+线上记录见[Render部署说明](Render部署说明.md)，前端待接入步骤见[Lovable公网接入补充说明](Lovable公网接入补充说明.md)。下文本机地址仍用于本地开发；Lovable 在线预览与未来发布环境使用上述 HTTPS 基地址。
 
 ## 1. 启动与停止
 
@@ -255,9 +257,9 @@ curl -X POST http://127.0.0.1:8000/api/draw \
   -d '{"language":"en","topic":"wealth"}'
 ```
 
-## 9. 本地网页与 Lovable 后续接入
+## 9. 本地网页与 Lovable 公网接入
 
-默认允许的网页来源为：
+本机开发默认允许的网页来源为：
 
 ```text
 http://localhost:3000
@@ -276,7 +278,17 @@ SUANMING_CORS_ORIGINS='http://localhost:5173,http://localhost:4173' ./.venv-api/
 
 指定后会替换默认列表。当前接口没有登录，不携带登录凭据。
 
-当前服务只绑定 `127.0.0.1`，是本机 HTTP，只有本机能访问。未来 Lovable 公网网页需要后端可访问的 HTTPS 地址，并配置对应的网页来源。当前没有部署公网服务，也尚未安装本地可信证书；HTTPS 是下一步，不能把本机 HTTP 地址作为已经完成的公网 HTTPS 接口。
+运行 `python api.py` 时仍只绑定本机 `127.0.0.1`。Render 则通过 Uvicorn 监听平台端口，以下 HTTPS 地址均已验证：
+
+- [健康检查](https://fortune-telling-api-rlt2.onrender.com/api/health)
+- [交互文档](https://fortune-telling-api-rlt2.onrender.com/docs)
+- [线上 OpenAPI](https://fortune-telling-api-rlt2.onrender.com/openapi.json)
+
+公网基地址不带 `/api`。四个实际／计划 Lovable 来源的 CORS 预检已通过，正常报告 `200` 和日期错误 `422` 均带正确跨域头，未允许来源被拒绝。Lovable 尚未接入／发布，不能把计划地址当作已验收的网站。具体来源和接入步骤见 [Render部署说明](Render部署说明.md) 与 [Lovable公网接入补充说明](Lovable公网接入补充说明.md)。
+
+线上已检查三主题中英文报告与排盘一致、出生日期及 DST 错误、英文桃花抽签和中英文人物。百科部分不可用：中文三位均 `available=false`；英文 Elvis Presley 可用，另外两位不可用。人物匹配、备用说明与原文链接正常；不把这些结果记作全部百科请求成功。
+
+本次通过公开仓库 URL 部署，未安装 GitHub 仓库集成；`autoDeployTrigger: off`，后续代码更新需手动选择 `Deploy latest commit`。本机可信证书未配置，不是 Render 公网 HTTPS 的前置条件。
 
 接口结构可从运行中的 `/openapi.json` 获取，也已导出到项目的 `openapi.json`，方便后续交给网页开发工具。
 
