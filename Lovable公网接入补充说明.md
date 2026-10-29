@@ -1,4 +1,4 @@
-# Suanming 公网接入补充说明：给正在制作前端的 Lovable
+# Suanming 公网接入补充说明：发布后的维护与验收
 
 日期：2026-10-29。
 
@@ -9,16 +9,16 @@
 采用以下最小改动路线：
 
 - Python FastAPI 后端：部署到 Render 的 Python Web Service。
-- 已有 Lovable 前端：保留当前项目和页面，继续在 Lovable 发布。
+- Lovable 前端：已发布于 https://doc-to-dreamsite.lovable.app，后续仍在当前项目维护和发布更新。
 - GitHub：保存和同步源代码；当前 Render 使用公开仓库 URL，后续更新需手动部署。
 
 本文补充并覆盖《Lovable本地Web需求说明.md》中“仅在用户本机运行”“公网部署留到以后”等部署范围约定。原文的五页结构、业务逻辑、数据字段、中英文规则、状态管理、同签语言切换与双语签文快照继续有效。
 
 请继续当前已经制作的页面，保留已有视觉成果。本次不要求重新设计页面或重新讨论已确认的风格，不新增页面、数据库、登录、历史记录，也不重写 Python 业务逻辑。
 
-**当前状态：后端 HTTPS 已部署并验证，前端未接入／未发布。** Render 服务为 Live、Free，区域 Oregon。实际 API 基地址是 [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)。健康、七个接口及四个具体 Lovable 来源的 CORS 均已完成线上检查。
+**当前状态：后端 HTTPS 已部署并验证，Lovable 网站已发布；整站流程待手动验收。** Render 服务为 Live、Free，区域 Oregon。实际 API 基地址是 [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)。健康、七个接口及四个具体 Lovable 来源的 CORS 均已完成线上检查。
 
-Lovable 前端尚未发布，尚未确认与此后端连接成功。Publish 界面计划域名是 `https://doc-to-dreamsite.lovable.app`，当前预览来源是 `https://preview--doc-to-dreamsite.lovable.app`；二者不能混写成已验收的公众网站。
+公开网站为 [https://doc-to-dreamsite.lovable.app](https://doc-to-dreamsite.lovable.app)，已确认首页 `200`、动态城市列表、中英文首页切换及实际发布来源的 API `GET`／`OPTIONS`。预览来源仍为 `https://preview--doc-to-dreamsite.lovable.app`。自动化未能完成原生日期控件填写，提交生日→菜单→报告／抽签／人物→返回／退出的整站流程仍待手动确认；这不是已确认的网站故障。
 
 服务记录与 CORS 来源见[Render部署说明](Render部署说明.md)。[服务控制台](https://dashboard.render.com/web/srv-dbh8gko473hc7397mgrg) 和 [Blueprint](https://dashboard.render.com/blueprint/exs-dbh8gbe1egvs73eqokpg) 是账号管理入口，不是面向访问者的网站。
 
@@ -36,7 +36,7 @@ Lovable 前端尚未发布，尚未确认与此后端连接成功。Publish 界�
 用户浏览器 → Lovable 发布的网页 → Render 上的 Python API
 ```
 
-完成后端验收、前端接入与网站发布后，用户的 Mac 不需要保持开机。平台提供的网站地址可用于公开体验，不必先准备自有域名。
+网站与后端均由云平台运行，用户的 Mac 不需要保持开机。平台提供的网站地址可用于公开体验，不必先准备自有域名。
 
 ## 3. 后端部署约定：由后端维护方完成
 
@@ -65,7 +65,7 @@ https://id-preview--20989e88-1876-429e-accf-5a000bbdbaa3.lovable.app
 https://20989e88-1876-429e-accf-5a000bbdbaa3.lovableproject.com
 ```
 
-第一项是计划发布来源，其余是已经观察到的预览／项目来源；CORS 通过不等于网页已发布或联调成功。正常报告和参数错误的跨域响应也已验证，未允许来源的预检被拒绝。来源不包含页面路径。
+第一项是已发布的公开网站，其余是已经观察到的预览／项目来源。正常报告和参数错误的跨域响应已在后端验证，未允许来源的预检被拒绝；实际网站来源的 `GET`／`OPTIONS` 也已确认。跨域检查不代表整站业务流程全部验收通过。来源不包含页面路径。
 
 线上报告、日期及 DST 校验、英文桃花抽签与中英文人物匹配均已检查。百科部分简介不可用：中文三位均返回备用说明；英文仅 Elvis Presley 本次获取成功，另外两位使用备用说明。匹配与原文链接正常，前端应继续遵守 `biography.available=false` 的降级约定。
 
@@ -77,7 +77,7 @@ https://20989e88-1876-429e-accf-5a000bbdbaa3.lovableproject.com
 
 所有 API 请求都经过一个集中配置的基地址：健康检查、城市、主题、出生验证、报告、抽签、人物查询都一样。
 
-- 生产环境和 Lovable 在线预览：使用 `https://fortune-telling-api-rlt2.onrender.com`；后端已验收，前端联调仍待完成。
+- 生产环境和 Lovable 在线预览：使用 `https://fortune-telling-api-rlt2.onrender.com`；公开网站基础连接已确认，完整业务交互待手动验收。
 - 开发者在自己电脑本地联调：可以显式配置 `http://127.0.0.1:8000`。
 - 基地址不包含 `/api`，请求路径继续使用 `/api/chart` 等。
 - 不要简单使用“开发模式就连接 localhost”的判断；Lovable 在线预览也可能是开发模式。
@@ -126,7 +126,7 @@ POST /api/people
 
 ### 4.4 公开发布与代码同步
 
-前端后续仍由 Lovable 发布，发布时确认网站允许公众访问并测试实际网址。目前尚未发布；`https://doc-to-dreamsite.lovable.app` 只是 Publish 界面的计划域名。
+前端已经由 Lovable 公开发布于 `https://doc-to-dreamsite.lovable.app`，首页可公开访问。后续修改仍需在 Lovable 发布更新并测试实际网址。
 
 GitHub 同步用于保存代码和同步编辑器，不能把“同步成功”当成“已发布网站已更新”。在 Lovable 修改前端后，仍需发布相应更新。当前 Render 未安装 GitHub 仓库集成，`autoDeployTrigger: off`；代码推送到 `main` 后要手动选择 **Deploy latest commit**。前后端发布状态分别确认。
 
@@ -134,11 +134,11 @@ GitHub 同步用于保存代码和同步编辑器，不能把“同步成功”�
 
 1. 已完成：后端代码与部署配置放入 GitHub，使用公开仓库 URL 创建 Render Blueprint 和免费服务。
 2. 已完成：真实 HTTPS 健康、接口业务与四个具体来源的跨域检查。
-3. 待完成：Lovable 使用上述真实基地址，在当前预览中验证请求。
+3. 已完成：Lovable 网站公开发布，首页、城市列表、中英文首页与实际来源的基础跨域连接已确认。
 4. 待完成：验证出生信息、解读、抽签、同签语言切换、人物与退出，修正联调问题。
-5. 待完成：由用户确认并发布前端，再从真实发布网址验收和分享。
+5. 待完成：从已发布网址完成手动验收；如果有修改，再发布更新并复核。
 
-本次后端部署已由用户授权执行；后端 HTTPS 已部署并验证，不表示前端已经连接或发布。
+后端 HTTPS 已部署并验证，前端现已公开发布。后端业务检查与网站整站交互验收分别记录，当前不能称整站所有功能已验收通过。
 
 ## 6. 公网验收标准
 
@@ -154,6 +154,6 @@ GitHub 同步用于保存代码和同步编辑器，不能把“同步成功”�
 
 ## 7. 可以直接发给 Lovable 的补充消息
 
-> 请保留当前五个页面、交互和视觉成果，继续现有项目。后端 HTTPS 已部署并验证，实际 API 基地址是 https://fortune-telling-api-rlt2.onrender.com ，基地址不含 /api；沿用原来的七个接口和 JSON 契约。四个具体 Lovable 来源的 CORS 已通过，下一步请在当前前端实际接入和联调；不要提前宣称已连接或发布。Publish 界面计划域名是 doc-to-dreamsite.lovable.app，当前预览为 preview--doc-to-dreamsite.lovable.app。人物接口的 available=false 是正常降级，请保留备用说明和原文链接。继续处理免费后端唤醒等待；随机抽签不自动重试，切换语言保留同一签。联调通过后，再由用户确认前端发布。
+> 网站已经公开发布于 https://doc-to-dreamsite.lovable.app 。请保留当前五个页面、交互和风格，在现有项目中维护。API 基地址继续使用 https://fortune-telling-api-rlt2.onrender.com ，基地址不含 /api；沿用七个接口和 JSON 契约。公开首页、动态城市列表、中英文首页及实际来源的基础跨域连接已确认，完整出生提交、报告、抽签、人物、返回与退出仍待手动验收。人物接口 available=false 时保留备用说明和原文链接；免费后端唤醒时显示等待，随机抽签不自动重试，语言切换保持同一签。后续修改完成后仍需发布更新并复核实际网站。
 
 官方资料（核对日期 2026-10-29）：[Render 部署 FastAPI](https://render.com/docs/deploy-fastapi)、[Render Python 版本配置](https://render.com/docs/python-version)、[Render 免费实例限制](https://render.com/docs/free)、[Render 自动部署](https://render.com/docs/deploys)、[Lovable 网站发布](https://docs.lovable.dev/features/publish)。

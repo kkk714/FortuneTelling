@@ -2,7 +2,7 @@
 
 更新日期：2026-10-29。项目目录：`/Users/liuliu/Desktop/suanming`。
 
-2026-10-29 当前状态：**后端 HTTPS 已部署并验证，前端未接入／未发布。** 实际 API 基地址为 [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)。Render 免费服务已上线，健康、业务与四个具体 Lovable 来源的 CORS 检查通过；百科部分简介不可用，已有备用说明和原文链接正常返回。
+2026-10-29 当前状态：**后端 HTTPS 已部署并验证，Lovable 网站已发布；整站流程待手动验收。** 网站为 [https://doc-to-dreamsite.lovable.app](https://doc-to-dreamsite.lovable.app)，API 基地址为 [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)。公开首页、动态城市列表、中英文首页及实际来源的 API `GET`／`OPTIONS` 已确认。自动化未能完成日期控件填写，提交生日到各结果、返回与退出仍待手动确认。Render 免费服务的既有后端业务检查通过；部分百科简介不可用时已有备用说明和原文链接。
 
 最终交付为公众直接打开 Lovable 网站即可使用；Render 托管现有 Python API，GitHub 保存代码。当前通过公开仓库 URL 创建 Blueprint，未安装 GitHub 仓库集成；采用手动部署，配置为 `autoDeployTrigger: off`。后续推送到 `main` 后仍需在 Render 选择 `Deploy latest commit`。详情见[Render部署说明](Render部署说明.md)与[Lovable公网接入补充说明](Lovable公网接入补充说明.md)。
 
@@ -37,7 +37,7 @@
 
 1. 先完善 Python 业务逻辑和内容，继续在本机终端运行。
 2. 保留财运、学习运、桃花运现有解读和各三支签，优先完成其余功能，整体功能完成后再扩充签文。
-3. 网页可调用的接口与 Render HTTPS 已完成，下一步让现有 Lovable 前端接入并验收，再由用户确认发布。
+3. 网页可调用的接口、Render HTTPS 与 Lovable 网站发布已完成，下一步完成已发布网站的整站手动验收。
 4. 暂不接数据库；账号注册登录、跨设备数据同步和长期历史记录留到后续。公开网页可由不同设备访问，不依赖这些功能。
 5. 30 位人物的计算、匹配、百科简介和终端展示已完成；暂不扩充人物数量，也暂不加入生平时间线。
 6. 中文业务功能完成后，统一补齐中英文界面、提示、报告、解读和签文；两种语言共用计算逻辑。
@@ -60,7 +60,7 @@
 
 ## 4. 已确认的五页 Web 规划
 
-五页方案已替代早期四页方案。Lovable 正在制作现有前端，当前尚未完成真实后端接入，也尚未发布。
+五页方案已替代早期四页方案。Lovable 前端已公开发布，首页与后端基础连接已确认，完整业务交互仍待手动验收。
 
 | 页面 | 主要功能 |
 | --- | --- |
@@ -296,7 +296,7 @@ flowchart TD
 
 ## 13. Lovable 的后续交接方式
 
-当前 Python 文件包括业务模块、终端与 API 入口及翻译工具。网页通过已验证的 Render HTTPS API 取得结构化结果，基地址为 `https://fortune-telling-api-rlt2.onrender.com`；前端接入尚未完成。
+当前 Python 文件包括业务模块、终端与 API 入口及翻译工具。网页通过已验证的 Render HTTPS API 取得结构化结果，基地址为 `https://fortune-telling-api-rlt2.onrender.com`；网站已发布，完整页面交互待手动确认。
 
 Lovable 交接材料包括：
 
@@ -308,7 +308,7 @@ Lovable 交接材料包括：
 
 保留 Python 的路线是“网页调用 Python API”。Lovable 的代码 ZIP 导入用于迁移或重建，不能据此保证原 Python 后端原样托管。
 
-本地运行方式继续保留。当前目标是让 Lovable 预览和发布网页都使用 Render HTTPS，联调通过后再确认发布。计划发布域名 `doc-to-dreamsite.lovable.app` 尚未发布，不能当成已完成的网站链接。
+本地运行方式继续保留。Lovable 网站已公开发布于 `https://doc-to-dreamsite.lovable.app`，使用 Render HTTPS，首页与基础连接已确认；整站业务流程仍待手动验收。
 
 ## 14. 当前运行方式
 
@@ -412,7 +412,7 @@ flowchart TD
 - 退出程序：在任意输入提示处输入 0；本次出生信息和已获取简介随运行结束，没有写入文件或数据库。下次启动先重填出生信息，只有主动选择 7 才准备人物和查询简介。
 - 目前只有百科摘要获取需要联网；规则读取、排盘、五行统计、文案选择、抽签和人物匹配都在本机完成。
 
-原流程的英文报告与人物在线简介已由你完整运行确认。单层菜单和 HTTP API 的本地检查已完成；Render HTTPS 线上验证见第 20 节。人物生平时间线继续暂缓，五页 Lovable 前端尚未接入／发布。
+原流程的英文报告与人物在线简介已由你完整运行确认。单层菜单和 HTTP API 的本地检查已完成；Render HTTPS 与网站发布记录见第 20 节。人物生平时间线继续暂缓，五页 Lovable 前端已发布，整站流程待手动验收。
 
 ## 17. 完整中英文与 HTTPS API：教学顺序
 
@@ -439,7 +439,7 @@ flowchart TD
 | 4 | 接入英文人物、分语言缓存及运行中切换 | 人物匹配不变，简介及提示使用所选语言，切换不重新抽签 |
 | 5 | 确认 API 运行环境与依赖，提取可复用业务调用 | 接口不使用终端 `input()`，沿用现有计算和规则 |
 | 6 | 新增 API，先在本机验证 HTTP 请求 | 可请求主题、报告和独立抽签，返回结构化数据和可处理的错误；中英文与终端一致 |
-| 7 | 在 Render 提供公网 HTTPS，保留本机 HTTP 开发方式 | 已通过真实 HTTPS 健康、业务与 CORS 验证；前端接入另行验收 |
+| 7 | 在 Render 提供公网 HTTPS，保留本机 HTTP 开发方式 | 已通过真实 HTTPS 健康、业务与 CORS 验证；网站已发布，完整页面交互另行验收 |
 
 API 已使用 FastAPI 与 Uvicorn，具体路由和字段见[API接口说明](API接口说明.md)。请求表达语言、出生日期时间、时区及重复钟点的选择；界面从请求结果中展示内容，不解析终端报告字符串。日期等请求校验是对现有业务的接口表达，不新增独立的 JSON 规则校验模块。
 
@@ -463,7 +463,7 @@ HTTPS 路线已更新：先完成本机 HTTP 验证，公网交由 Render 处理
 
 本次先输入中文全角冒号 `14：15`，程序显示英文格式错误提示；改成英文半角冒号 `14:15` 后成功。这符合当前 `%H:%M` 输入规则，暂不增加自动替换符号的功能。
 
-单层菜单、本机 HTTP API 与 Render HTTPS 已完成。终端验收见[手动测试清单](手动测试清单.md)，接口说明见[API接口说明](API接口说明.md)。下一步是 Lovable 前端接入与发布验收，人物生平时间线仍暂缓。
+单层菜单、本机 HTTP API、Render HTTPS 与 Lovable 网站发布已完成。终端验收见[手动测试清单](手动测试清单.md)，接口说明见[API接口说明](API接口说明.md)。下一步完成已发布网站的整站手动验收，人物生平时间线仍暂缓。
 
 ## 18. 已实现的新流程：先填出生信息＋单层编号菜单
 
@@ -568,9 +568,9 @@ API 无用户会话和数据库，不保存生日或查询历史。网页先调�
 
 `openapi.json` 已从当前应用导出。本机启动仍绑定 `127.0.0.1`，Render 则使用平台端口并提供已验证的公网 HTTPS。线上地址与前端状态见下一节。
 
-## 20. Render 已上线，Lovable 待接入与发布
+## 20. Render 与 Lovable 网站已上线
 
-**后端 HTTPS 已部署并验证，前端未接入／未发布。** Render 服务当前为 Live、Free，区域为 Oregon。
+**后端 HTTPS 已部署并验证，Lovable 网站已发布；整站流程待手动验收。** Render 服务当前为 Live、Free，区域为 Oregon。公开网站为 [https://doc-to-dreamsite.lovable.app](https://doc-to-dreamsite.lovable.app)。
 
 - API 基地址：[https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)
 - [线上健康检查](https://fortune-telling-api-rlt2.onrender.com/api/health)、[交互文档](https://fortune-telling-api-rlt2.onrender.com/docs)、[OpenAPI](https://fortune-telling-api-rlt2.onrender.com/openapi.json)
@@ -582,4 +582,4 @@ API 无用户会话和数据库，不保存生日或查询历史。网页先调�
 
 当前通过公开仓库 URL 部署，未安装 GitHub 仓库集成。`render.yaml` 设置 `autoDeployTrigger: off`，后续代码更新需在推送后手动选择 `Deploy latest commit`；Blueprint 配置变更也需手动同步，以上线部署记录为准。
 
-Lovable 当前预览来源为 `https://preview--doc-to-dreamsite.lovable.app`，另观察到 `https://id-preview--20989e88-1876-429e-accf-5a000bbdbaa3.lovable.app` 与 `https://20989e88-1876-429e-accf-5a000bbdbaa3.lovableproject.com`。计划发布域名为 `https://doc-to-dreamsite.lovable.app`，尚未发布。四项均已通过后端 CORS 预检，这不等于前端已连接；下一步继续当前 Lovable 项目，用真实后端联调，再确认发布。
+Lovable 当前预览来源为 `https://preview--doc-to-dreamsite.lovable.app`，另观察到 `https://id-preview--20989e88-1876-429e-accf-5a000bbdbaa3.lovable.app` 与 `https://20989e88-1876-429e-accf-5a000bbdbaa3.lovableproject.com`。公开网站现为 `https://doc-to-dreamsite.lovable.app`，四项来源均已通过后端 CORS 预检。本次公开网站检查确认首页 `200`、动态城市列表、中英文首页切换与实际来源的 API `GET`／`OPTIONS`。原生日期控件未能由自动操作完成填写，尚未完成提交生日→菜单→报告／抽签／人物→返回／退出的整站验收，留给用户手动确认；不将该工具输入限制记作已确认的网站故障。

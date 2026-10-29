@@ -2,11 +2,12 @@
 
 更新日期：2026-10-29。仓库：[kkk714/FortuneTelling](https://github.com/kkk714/FortuneTelling)。
 
-**当前状态：后端 HTTPS 已部署并验证，前端未接入／未发布。** Render 服务为 Live、Free，区域 Oregon。真实 HTTPS 业务与跨域检查已通过，Lovable 前端尚未确认连接成功。
+**当前状态：后端 HTTPS 已部署并验证，Lovable 网站已发布；整站流程待手动验收。** Render 服务为 Live、Free，区域 Oregon。真实 HTTPS 业务与跨域检查已通过。
 
 | 项目 | 实际地址 |
 | --- | --- |
 | API 基地址 | [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com) |
+| 公开网站 | [Suanming 五行体验](https://doc-to-dreamsite.lovable.app) |
 | 服务控制台 | [Render Web Service](https://dashboard.render.com/web/srv-dbh8gko473hc7397mgrg) |
 | Blueprint | [Render Blueprint](https://dashboard.render.com/blueprint/exs-dbh8gbe1egvs73eqokpg) |
 
@@ -53,7 +54,7 @@
 {"status":"ok","api_version":"1.0.0"}
 ```
 
-线上还已验证中英文主题／城市、三主题中英文报告、非法日期、悉尼 DST 空缺／重复及 `fold=1`、一次英文桃花抽签、中英文各三位人物。接口示例见 [API接口说明](API接口说明.md)。完整网站仍需 Lovable 接入与发布。
+线上还已验证中英文主题／城市、三主题中英文报告、非法日期、悉尼 DST 空缺／重复及 `fold=1`、一次英文桃花抽签、中英文各三位人物。接口示例见 [API接口说明](API接口说明.md)。网站已发布，整站业务流程仍待手动验收。
 
 百科实际结果并非全部成功：中文三位均为 `available=false`；英文 Elvis Presley 可用，Pope Benedict XVI 和 Serge Gainsbourg 不可用。人物匹配、备用说明与原文链接均正常返回。
 
@@ -63,12 +64,12 @@
 
 | 来源 | 当前用途 |
 | --- | --- |
-| `https://doc-to-dreamsite.lovable.app` | Publish 界面计划发布域名，尚未发布 |
+| `https://doc-to-dreamsite.lovable.app` | 已发布的公开网站 |
 | `https://preview--doc-to-dreamsite.lovable.app` | 已观察到的当前预览来源 |
 | `https://id-preview--20989e88-1876-429e-accf-5a000bbdbaa3.lovable.app` | 已观察到的另一预览来源 |
 | `https://20989e88-1876-429e-accf-5a000bbdbaa3.lovableproject.com` | 已观察到的项目来源 |
 
-正常报告 `200` 与日期错误 `422` 响应均已检查 CORS；未允许来源的预检返回 `400`，不带允许来源头。来源只包含协议、域名和必要端口，不带 `/` 结尾或页面路径。上述检查不是前端已经联通或发布的证明。
+正常报告 `200` 与日期错误 `422` 响应均已检查 CORS；未允许来源的预检返回 `400`，不带允许来源头。来源只包含协议、域名和必要端口，不带 `/` 结尾或页面路径。本次另已确认实际发布来源的 API `GET`／`OPTIONS`；整站验收范围见下节。
 
 - 生产发布地址与在线预览地址如果不同，分别加入，用英文逗号隔开。
 - 不带引号，不填 `*`，不把 Render 自己的地址当成 Lovable 地址。
@@ -79,15 +80,15 @@ CORS 只控制浏览器跨域访问，不是账号权限或 API 密钥。以后�
 
 ## 5. 给 Lovable 的内容
 
-后端验收已通过。将 `https://fortune-telling-api-rlt2.onrender.com`、[Lovable公网接入补充说明](Lovable公网接入补充说明.md) 和原来的五页需求交给 Lovable，让它：
+后端验收已通过，网站已发布于 [https://doc-to-dreamsite.lovable.app](https://doc-to-dreamsite.lovable.app)。后续继续按[Lovable公网接入补充说明](Lovable公网接入补充说明.md)和原来的五页需求核对：
 
-1. 保留已有页面与风格，统一修改 API 基地址；基地址不包含 `/api`。
-2. 在线预览和发布环境都调用这个 HTTPS 后端。
+1. 保留已有页面与风格，统一使用实际 API 基地址；基地址不包含 `/api`。
+2. 核对在线预览和发布环境都调用这个 HTTPS 后端。
 3. 保留七个接口及现有字段、中英文、出生时区与同签语言切换约定。
 4. 服务休眠唤醒时显示等待，随机抽签请求不自动重试。
-5. 实际联调成功后，再由用户确认并发布网页，提供公众可以打开的网站链接。
+5. 从已发布网址完成整站流程的手动验收；后续前端修改仍需重新发布。
 
-用另一台设备测试出生输入、三主题报告、抽签、人物、语言切换与退出，确认无需启动自己的 Mac。
+本次已确认公开首页 `200`（标题为“出生信息 · Suanming 五行体验”）、动态城市列表和中英文首页切换。自动化未能完成浏览器日期控件填写，提交生日→菜单→报告／抽签／人物→返回／退出尚未完成整站 E2E，留给用户手动确认；可用另一台设备继续测试。
 
 ## 6. 之后更新代码
 

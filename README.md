@@ -10,15 +10,17 @@
 
 ## 项目状态
 
-本仓库包含后端、终端程序、规则数据与接入文档。Lovable 正在制作的网页不在本仓库中。
+本仓库包含后端、终端程序、规则数据与接入文档。Lovable 发布的网页不在本仓库中。
 
-**当前状态：后端 HTTPS 已部署并验证，前端未接入／未发布。** Render 服务为 Live、Free，区域 Oregon；通过公开仓库 URL 部署。
+**当前状态：后端 HTTPS 已部署并验证，Lovable 网站已发布；整站流程待手动验收。** Render 服务为 Live、Free，区域 Oregon；通过公开仓库 URL 部署。
 
 - API 基地址：[https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)
 - 已验证入口：[健康检查](https://fortune-telling-api-rlt2.onrender.com/api/health)、[交互文档](https://fortune-telling-api-rlt2.onrender.com/docs)、[OpenAPI](https://fortune-telling-api-rlt2.onrender.com/openapi.json)。
-- Lovable 前端尚未发布，也尚未确认与此后端连接成功；当前没有已验收的公众网站链接。
+- 公开网站：[Suanming 五行体验](https://doc-to-dreamsite.lovable.app)。
 
 线上已检查中英文主题与报告、出生时间错误、抽签、人物匹配和四个具体 Lovable 来源的 CORS。百科部分简介不可用时会返回备用说明和原文链接，未宣称全部简介获取成功。
+
+本次网站检查已确认首页 `200`、动态城市列表、中英文首页切换及发布来源的 API `GET`／`OPTIONS`。自动化未能完成日期控件填写，提交生日→菜单→报告／抽签／人物→返回／退出的整站流程仍待用户手动确认。
 
 ```text
 用户浏览器 → Lovable 发布的网页 → Render 上的 FastAPI 后端
