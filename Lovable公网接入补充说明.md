@@ -18,7 +18,7 @@
 
 **当前状态：后端 HTTPS 已部署并验证，Lovable 网站已发布；整站流程待手动验收。** Render 服务为 Live、Free，区域 Oregon。实际 API 基地址是 [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)。健康、七个接口及四个具体 Lovable 来源的 CORS 均已完成线上检查。
 
-公开网站为 [https://doc-to-dreamsite.lovable.app](https://doc-to-dreamsite.lovable.app)，已确认首页 `200`、动态城市列表、中英文首页切换及实际发布来源的 API `GET`／`OPTIONS`。预览来源仍为 `https://preview--doc-to-dreamsite.lovable.app`。自动化未能完成原生日期控件填写，提交生日→菜单→报告／抽签／人物→返回／退出的整站流程仍待手动确认；这不是已确认的网站故障。
+公开网站为 [https://doc-to-dreamsite.lovable.app](https://doc-to-dreamsite.lovable.app)，已确认首页 `200`、动态城市列表、中英文首页切换及实际发布来源的 API `GET`／`OPTIONS`。预览来源仍为 `https://preview--doc-to-dreamsite.lovable.app`。用户已用上海、2003-04-01、14:15 手动确认出生提交及财运报告正常；其余主题、抽签、人物、结果页语言切换、返回与退出仍待手动验收。
 
 服务记录与 CORS 来源见[Render部署说明](Render部署说明.md)。[服务控制台](https://dashboard.render.com/web/srv-dbh8gko473hc7397mgrg) 和 [Blueprint](https://dashboard.render.com/blueprint/exs-dbh8gbe1egvs73eqokpg) 是账号管理入口，不是面向访问者的网站。
 
@@ -135,7 +135,7 @@ GitHub 同步用于保存代码和同步编辑器，不能把“同步成功”�
 1. 已完成：后端代码与部署配置放入 GitHub，使用公开仓库 URL 创建 Render Blueprint 和免费服务。
 2. 已完成：真实 HTTPS 健康、接口业务与四个具体来源的跨域检查。
 3. 已完成：Lovable 网站公开发布，首页、城市列表、中英文首页与实际来源的基础跨域连接已确认。
-4. 待完成：验证出生信息、解读、抽签、同签语言切换、人物与退出，修正联调问题。
+4. 部分完成：用户已手动确认出生提交及财运报告；其余主题、抽签、同签语言切换、人物、返回与退出仍待验收。
 5. 待完成：从已发布网址完成手动验收；如果有修改，再发布更新并复核。
 
 后端 HTTPS 已部署并验证，前端现已公开发布。后端业务检查与网站整站交互验收分别记录，当前不能称整站所有功能已验收通过。
@@ -154,6 +154,6 @@ GitHub 同步用于保存代码和同步编辑器，不能把“同步成功”�
 
 ## 7. 可以直接发给 Lovable 的补充消息
 
-> 网站已经公开发布于 https://doc-to-dreamsite.lovable.app 。请保留当前五个页面、交互和风格，在现有项目中维护。API 基地址继续使用 https://fortune-telling-api-rlt2.onrender.com ，基地址不含 /api；沿用七个接口和 JSON 契约。公开首页、动态城市列表、中英文首页及实际来源的基础跨域连接已确认，完整出生提交、报告、抽签、人物、返回与退出仍待手动验收。人物接口 available=false 时保留备用说明和原文链接；免费后端唤醒时显示等待，随机抽签不自动重试，语言切换保持同一签。后续修改完成后仍需发布更新并复核实际网站。
+> 网站已经公开发布于 https://doc-to-dreamsite.lovable.app 。请保留当前五个页面、交互和风格，在现有项目中维护。API 基地址继续使用 https://fortune-telling-api-rlt2.onrender.com ，基地址不含 /api；沿用七个接口和 JSON 契约。公开首页、动态城市列表、中英文首页及实际来源的基础跨域连接已确认，用户已手动确认出生提交及财运报告正常；其余主题、抽签、人物、结果页语言切换、返回与退出仍待手动验收。人物接口 available=false 时保留备用说明和原文链接；免费后端唤醒时显示等待，随机抽签不自动重试，语言切换保持同一签。后续修改完成后仍需发布更新并复核实际网站。
 
 官方资料（核对日期 2026-10-29）：[Render 部署 FastAPI](https://render.com/docs/deploy-fastapi)、[Render Python 版本配置](https://render.com/docs/python-version)、[Render 免费实例限制](https://render.com/docs/free)、[Render 自动部署](https://render.com/docs/deploys)、[Lovable 网站发布](https://docs.lovable.dev/features/publish)。

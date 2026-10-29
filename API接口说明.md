@@ -4,7 +4,7 @@
 
 2026-10-29 公网状态：**后端 HTTPS 已部署并验证，Lovable 网站已发布；整站流程待手动验收。** Render 服务为 Live、Free，区域 Oregon。真实 API 基地址为 [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)，七个接口、业务及四个 Lovable 来源的 CORS 已完成线上检查。
 
-公开网站为 [https://doc-to-dreamsite.lovable.app](https://doc-to-dreamsite.lovable.app)。本次已确认公开首页、动态城市列表、中英文首页切换及实际发布来源的 API `GET`／`OPTIONS`；自动化未能完成日期控件填写，提交生日至各结果、返回和退出的整站流程待用户手动确认。线上记录见[Render部署说明](Render部署说明.md)，接入约定见[Lovable公网接入补充说明](Lovable公网接入补充说明.md)。下文本机地址仍用于本地开发；Lovable 在线预览与发布环境使用上述 HTTPS 基地址。
+公开网站为 [https://doc-to-dreamsite.lovable.app](https://doc-to-dreamsite.lovable.app)。本次已确认公开首页、动态城市列表、中英文首页切换及实际发布来源的 API `GET`／`OPTIONS`。用户已用上海、2003-04-01、14:15 手动确认出生提交及财运报告正常；其余主题、抽签、人物、结果页语言切换、返回与退出仍待手动验收。线上记录见[Render部署说明](Render部署说明.md)，接入约定见[Lovable公网接入补充说明](Lovable公网接入补充说明.md)。下文本机地址仍用于本地开发；Lovable 在线预览与发布环境使用上述 HTTPS 基地址。
 
 ## 1. 启动与停止
 

@@ -2,7 +2,7 @@
 
 更新日期：2026-10-29。项目目录：`/Users/liuliu/Desktop/suanming`。
 
-2026-10-29 当前状态：**后端 HTTPS 已部署并验证，Lovable 网站已发布；整站流程待手动验收。** 网站为 [https://doc-to-dreamsite.lovable.app](https://doc-to-dreamsite.lovable.app)，API 基地址为 [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)。公开首页、动态城市列表、中英文首页及实际来源的 API `GET`／`OPTIONS` 已确认。自动化未能完成日期控件填写，提交生日到各结果、返回与退出仍待手动确认。Render 免费服务的既有后端业务检查通过；部分百科简介不可用时已有备用说明和原文链接。
+2026-10-29 当前状态：**后端 HTTPS 已部署并验证，Lovable 网站已发布；整站流程待手动验收。** 网站为 [https://doc-to-dreamsite.lovable.app](https://doc-to-dreamsite.lovable.app)，API 基地址为 [https://fortune-telling-api-rlt2.onrender.com](https://fortune-telling-api-rlt2.onrender.com)。公开首页、动态城市列表、中英文首页及实际来源的 API `GET`／`OPTIONS` 已确认。用户已用上海、2003-04-01、14:15 手动确认出生提交及财运报告正常；其余主题、抽签、人物、结果页语言切换、返回与退出仍待手动验收。Render 免费服务的既有后端业务检查通过；部分百科简介不可用时已有备用说明和原文链接。
 
 最终交付为公众直接打开 Lovable 网站即可使用；Render 托管现有 Python API，GitHub 保存代码。当前通过公开仓库 URL 创建 Blueprint，未安装 GitHub 仓库集成；采用手动部署，配置为 `autoDeployTrigger: off`。后续推送到 `main` 后仍需在 Render 选择 `Deploy latest commit`。详情见[Render部署说明](Render部署说明.md)与[Lovable公网接入补充说明](Lovable公网接入补充说明.md)。
 
@@ -582,4 +582,4 @@ API 无用户会话和数据库，不保存生日或查询历史。网页先调�
 
 当前通过公开仓库 URL 部署，未安装 GitHub 仓库集成。`render.yaml` 设置 `autoDeployTrigger: off`，后续代码更新需在推送后手动选择 `Deploy latest commit`；Blueprint 配置变更也需手动同步，以上线部署记录为准。
 
-Lovable 当前预览来源为 `https://preview--doc-to-dreamsite.lovable.app`，另观察到 `https://id-preview--20989e88-1876-429e-accf-5a000bbdbaa3.lovable.app` 与 `https://20989e88-1876-429e-accf-5a000bbdbaa3.lovableproject.com`。公开网站现为 `https://doc-to-dreamsite.lovable.app`，四项来源均已通过后端 CORS 预检。本次公开网站检查确认首页 `200`、动态城市列表、中英文首页切换与实际来源的 API `GET`／`OPTIONS`。原生日期控件未能由自动操作完成填写，尚未完成提交生日→菜单→报告／抽签／人物→返回／退出的整站验收，留给用户手动确认；不将该工具输入限制记作已确认的网站故障。
+Lovable 当前预览来源为 `https://preview--doc-to-dreamsite.lovable.app`，另观察到 `https://id-preview--20989e88-1876-429e-accf-5a000bbdbaa3.lovable.app` 与 `https://20989e88-1876-429e-accf-5a000bbdbaa3.lovableproject.com`。公开网站现为 `https://doc-to-dreamsite.lovable.app`，四项来源均已通过后端 CORS 预检。本次公开网站检查确认首页 `200`、动态城市列表、中英文首页切换与实际来源的 API `GET`／`OPTIONS`。用户已用上海、2003-04-01、14:15 手动确认出生提交及财运报告正常；其余主题、抽签、人物、结果页语言切换、返回与退出仍待手动验收。
